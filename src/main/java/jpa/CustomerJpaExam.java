@@ -17,7 +17,9 @@ public class CustomerJpaExam {
         try { // persist, commit 과정에서 예외가 발생하면 rollback
             Customer customer = new Customer("ID0002", "kim");
             em.persist(customer); // insert 실행되지 않고 1차 캐시에 저장된다
-            em.persist(customer);
+
+            Customer foundCustomer = em.find(Customer.class, "ID0002"); // 위 코드를 통해 캐시에 올라간 영속 객체를 반환해준다
+            System.out.println("foundCustomer : " + foundCustomer.toString());
 
             tx.commit(); // insert 실행된다
         } catch (Exception e) {
