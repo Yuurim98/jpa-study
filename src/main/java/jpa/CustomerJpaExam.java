@@ -15,11 +15,11 @@ public class CustomerJpaExam {
 
         tx.begin();
         try { // persist, commit 과정에서 예외가 발생하면 rollback
-            em.persist(Customer.sample());
-            Customer foundCustomer = em.find(Customer.class, "ID0001");
-            foundCustomer.setName("choi");
+            Customer customer = new Customer("ID0002", "kim");
+            em.persist(customer); // insert 실행되지 않고 1차 캐시에 저장된다
+            em.persist(customer);
 
-            tx.commit();
+            tx.commit(); // insert 실행된다
         } catch (Exception e) {
             tx.rollback();
         } finally {
