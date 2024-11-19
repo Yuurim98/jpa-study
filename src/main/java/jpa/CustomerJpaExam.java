@@ -21,6 +21,7 @@ public class CustomerJpaExam {
 
             Customer customer = new Customer("ID0005", "Jin"); // 순수 자바 객체 - 비영속 상태
             em.persist(customer); // 영속 객체 - 영속 상태 / find()를 통해 객체를 데이터베이스에서 가져와서 컨텍스트에 올리면 해당 객체도 영속 상태가 된다
+            em.detach(customer); // 준 영속 상태
 
             Customer foundCustomer = em.find(Customer.class, "ID0005");
             System.out.println(foundCustomer.toString());
