@@ -17,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "CUSTOMER_TB")
-@SequenceGenerator(name = "customer_generator", sequenceName = "customer_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "customer_generator", sequenceName = "customer_seq", initialValue = 1)
 public class Customer {
 
     @Id
