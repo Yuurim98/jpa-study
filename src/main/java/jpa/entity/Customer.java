@@ -17,11 +17,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "CUSTOMER_TB")
-@SequenceGenerator(name = "customer_generator", sequenceName = "customer_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "customer_generator", sequenceName = "customer_seq", initialValue = 1)
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
+    @SequenceGenerator(name = "my_seq", sequenceName = "db_seq") // sequenceName = DB 시퀀스명
     private Long id;
     private String name;
     private long registerDate;
