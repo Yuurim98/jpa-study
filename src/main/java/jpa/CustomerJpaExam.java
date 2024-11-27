@@ -4,7 +4,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
-import jpa.entity.Customer;
+import jpa.entity.Major;
+import jpa.entity.Student;
 
 public class CustomerJpaExam {
 
@@ -15,20 +16,27 @@ public class CustomerJpaExam {
         EntityTransaction tx = em.getTransaction(); // Transaction 을 가져온다
 
         tx.begin();
-        try { // persist, commit 과정에서 예외가 발생하면 rollback
+        try {
 
-            for(int i = 0; i < 100; i++) {
-                Customer customer = new Customer();
-                customer.setName("Jin");
-                customer.setRegisterDate(System.currentTimeMillis());
-                em.persist(customer); // 시퀀스 값을 가져온다
-                // 현재는 allocationSize 옵션이 1이어서 반복 횟수만큼 시퀀스 조회 쿼리문이 발생됨
-                // (allocationSize 옵션을 기본값으로 두면 대부분의 상황에서 좋은 성능)
-            }
+            // 전공 생성
+            Major major = new Major("Computer Science", "Engineering");
+            em.persist(major);
 
-            System.out.println("before commit");
+            // 학생 생성
+            Student student = new Student("kim", "3");
+            student.setMajorId(major.getMajorId());
+            em.persist(student);
 
-            tx.commit(); // insert
+            em.flush();
+            em.clear();
+
+            // 학생의 전공 찾기
+            Student foundStudent = em.find(Student.class, 1);
+            Major foundMajor = em.find(Major.class, foundStudent.getMajorId());
+            System.out.println(foundStudent);
+            System.out.println(foundMajor);
+
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {
