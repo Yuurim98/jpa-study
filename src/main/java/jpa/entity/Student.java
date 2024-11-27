@@ -1,6 +1,7 @@
 package jpa.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -25,7 +26,7 @@ public class Student {
     private String name;
     private String grade;
 
-    @ManyToOne // 관계구성
+    @ManyToOne(fetch = FetchType.LAZY)// 관계구성
     @JoinColumn(name = "MAJORID") // 외래키 지정
     private Major major;
 

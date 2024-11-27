@@ -32,7 +32,8 @@ public class CustomerJpaExam {
 
             // 학생의 전공 찾기
             Student foundStudent = em.find(Student.class, 1);
-            System.out.println(foundStudent); // 학생 검색 시 major 에 대한 정보 함께 포함
+            foundStudent.getName(); // Student 에 대한 select  발생
+            System.out.println(foundStudent.getMajor().getCategory()); // Major 에 대한 select 밠생
 
             tx.commit();
         } catch (Exception e) {
