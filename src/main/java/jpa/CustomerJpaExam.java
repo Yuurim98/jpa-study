@@ -24,7 +24,7 @@ public class CustomerJpaExam {
 
             // 학생 생성
             Student student = new Student("kim", "3");
-            student.setMajorId(major.getMajorId());
+            student.setMajor(major);
             em.persist(student);
 
             em.flush();
@@ -32,9 +32,7 @@ public class CustomerJpaExam {
 
             // 학생의 전공 찾기
             Student foundStudent = em.find(Student.class, 1);
-            Major foundMajor = em.find(Major.class, foundStudent.getMajorId());
-            System.out.println(foundStudent);
-            System.out.println(foundMajor);
+            System.out.println(foundStudent); // 학생 검색 시 major 에 대한 정보 함께 포함
 
             tx.commit();
         } catch (Exception e) {

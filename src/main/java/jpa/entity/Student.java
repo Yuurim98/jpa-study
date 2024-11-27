@@ -3,6 +3,8 @@ package jpa.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,10 @@ public class Student {
     private Long studentId;
     private String name;
     private String grade;
-    private Long majorId;
+
+    @ManyToOne // 관계구성
+    @JoinColumn(name = "MAJORID") // 외래키 지정
+    private Major major;
 
     public Student(String name, String grade) {
         this.name = name;
